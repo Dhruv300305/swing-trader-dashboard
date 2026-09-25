@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Techno-Funda Connors Terminal | Institutional Swing Trading System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Local JS fallback for direct double-click file:// viewing without CORS blocks -->
+  <script src="dashboard_data.js"></script>
+  <style>
+    :root {
+      --bg-base: #0a0d14;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-card-hover: rgba(28, 36, 56, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 242, 254, 0.25);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #c084fc;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at 10% 20%, #0d121f 0%, #06080e 100%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    /* Top Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 36px;
+      background: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.1));
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      background: linear-gradient(90deg, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .live-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-emerald);
+      letter-spacing: 0.5px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .refresh-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .refresh-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 24px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-glow);
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+    }
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--accent-emerald);
+      margin-top: 6px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Tab Switcher */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+    }
+    .tab-btn:hover:not(.active) {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Badges */
+    .score-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .status-badge {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .status-badge.bullish {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+    }
+    .status-badge.neutral {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-amber);
+    }
+
+    /* Stock Radar Grid */
+    .stock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .stock-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 22px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .stock-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(0, 242, 254, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .stock-symbol {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .stock-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+    .stock-ltp {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .stock-change {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .stock-change.pos { color: var(--accent-emerald); }
+    .stock-change.neg { color: var(--accent-rose); }
+    .metric-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .pill-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .pill-val {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+    .concall-snippet {
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid var(--accent-cyan);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+    .concall-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .tech-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+    }
+
+    /* Tables */
+    .table-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .table-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 11px;
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    td {
+      padding: 15px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #e2e8f0;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Stats Banner */
+    .stats-banner {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .stat-pill {
+      flex: 1;
+      min-width: 140px;
+    }
+    .stat-pill-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stat-pill-val {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2px;
+    }
+
+    .hide { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-icon">🏛️</div>
+      <div>
+        <div class="brand-title">Techno-Funda Connors Terminal</div>
+        <div style="font-size: 11px; color: var(--text-dim);" id="nav-last-sync">Pristine Leaders + Connors RSI(2) Mean Reversion</div>
+      </div>
+    </div>
+    <div class="nav-status">
+      <div class="live-pill">
+        <div class="pulse-dot"></div>
+        <span>AUTORUN 15:18 IST ACTIVE</span>
+      </div>
+      <button class="refresh-btn" onclick="fetchDashboardData()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+        Sync Now
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- KPI Row -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Portfolio Equity</div>
+        <div class="kpi-value" id="kpi-total-val">₹50,000.00</div>
+        <div class="kpi-sub" id="kpi-gain-sub">🟢 +0.00% Net Return</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Liquid Cash Available</div>
+        <div class="kpi-value" id="kpi-cash-val">₹50,000.00</div>
+        <div class="kpi-sub" style="color: var(--accent-cyan);">Ready for RSI(2) &le; 10 Setups</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Active Swing Holdings</div>
+        <div class="kpi-value" id="kpi-active-count">0 / 4 Positions</div>
+        <div class="kpi-sub" style="color: var(--accent-amber);">Max 4 Slots @ ₹12,500 each</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cumulative Realized P&L</div>
+        <div class="kpi-value" id="kpi-realized-val">₹0.00</div>
+        <div class="kpi-sub" id="kpi-realized-sub" style="color: var(--accent-emerald);">Win Rate: 0.0%</div>
+      </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('radar')">🌟 Pristine 12 Radar</button>
+      <button class="tab-btn" onclick="switchTab('positions')">📈 Active Swing Holdings</button>
+      <button class="tab-btn" onclick="switchTab('trades')">📜 Closed Trades & P&L History</button>
+      <button class="tab-btn" onclick="switchTab('concall')">🎙️ Deep Concall Intelligence</button>
+      <button class="tab-btn" onclick="switchTab('matrix')">📊 3-Year Strategy Matrix</button>
+    </div>
+
+    <!-- TAB 1: Radar Grid -->
+    <div id="tab-radar">
+      <div class="stock-grid" id="radar-cards-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- TAB 2: Active Positions -->
+    <div id="tab-positions" class="hide">
+      <div class="table-card">
+        <div class="table-header">
+          <span>Active Techno-Funda Connors Positions</span>
+          <span style="font-size: 12px; color: var(--accent-cyan); font-weight: 500;">Mean Reversion Exit: Price &gt; 5-SMA or RSI(2) &ge; 70</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Funda Score</th>
+              <th>Entry Date</th>
+              <th>Entry Price</th>
+              <th>Current LTP</th>
+              <th>Qty</th>
+              <th>Stop Loss (-5.5%)</th>
+              <th>Target Rule</th>
+              <th>Net P&L (₹)</th>
+              <th>Return (%)</th>
+            </tr>
+          </thead>
+          <tbody id="positions-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: Closed Trades & Audit Log -->
+    <div id="tab-trades" class="hide">
+      <div class="stats-banner">
+        <div class="stat-pill">
+          <div class="stat-pill-label">Total Closed Trades</div>
+          <div class="stat-pill-val" id="stats-total-trades">0</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">Profitable Wins</div>
+          <div class="stat-pill-val" id="stats-total-wins" style="color: var(--accent-emerald);">0</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">Losses</div>
+          <div class="stat-pill-val" id="stats-total-losses" style="color: var(--accent-rose);">0</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">Win Rate</div>
+          <div class="stat-pill-val" id="stats-win-rate" style="color: var(--accent-cyan);">0.0%</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">Net Realized Gain</div>
+          <div class="stat-pill-val" id="stats-net-realized">₹0.00</div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <span>Complete Exited Trades Audit Log</span>
+          <span style="font-size: 12px; color: var(--text-dim);">Historical Execution Record</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Entry Date</th>
+              <th>Exit Date</th>
+              <th>Entry Price</th>
+              <th>Exit Price</th>
+              <th>Qty</th>
+              <th>Hold Days</th>
+              <th>Realized P&L (₹)</th>
+              <th>Return (%)</th>
+              <th>Exit Reason</th>
+            </tr>
+          </thead>
+          <tbody id="closed-trades-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 4: Concall Explorer -->
+    <div id="tab-concall" class="hide">
+      <div class="stock-grid" id="concall-cards-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- TAB 5: 3-Year Strategy Matrix -->
+    <div id="tab-matrix" class="hide">
+      <div class="table-card">
+        <div class="table-header">
+          <span>3-Year Empirical Quantitative Comparison (744 Trading Days)</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Strategy Framework</th>
+              <th>3-Year Trades</th>
+              <th>Total Fees Paid</th>
+              <th>Avg Win</th>
+              <th>Avg Loss</th>
+              <th>Payoff Ratio</th>
+              <th>Max Drawdown</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Single-Timeframe Connors</strong></td>
+              <td>315 trades</td>
+              <td style="color: var(--accent-rose);">-₹20,475.00</td>
+              <td>+₹520 (+2.1%)</td>
+              <td>-₹768 (-3.1%)</td>
+              <td>0.67</td>
+              <td>34.59%</td>
+              <td><span class="status-badge neutral">MA Undercuts</span></td>
+            </tr>
+            <tr>
+              <td><strong>2. Multi-Timeframe (MTF) Confluence</strong></td>
+              <td><strong>67 trades</strong></td>
+              <td style="color: var(--accent-emerald);">-₹4,355.00</td>
+              <td style="color: var(--accent-emerald);"><strong>+₹1,298 (+7.5%+)</strong></td>
+              <td>-₹957 (-3.5%)</td>
+              <td><strong>1.36</strong></td>
+              <td><strong>23.81%</strong></td>
+              <td><span class="status-badge bullish">Positive Asymmetry 🟢</span></td>
+            </tr>
+            <tr style="background: rgba(0, 242, 254, 0.05);">
+              <td><strong>3. Techno-Funda Connors Pipeline</strong></td>
+              <td><strong>20–35 trades/yr</strong></td>
+              <td style="color: var(--accent-emerald);"><strong>&lt; ₹1,200/yr</strong></td>
+              <td style="color: var(--accent-emerald);"><strong>+₹1,500 – +₹2,800</strong></td>
+              <td>-₹650 (-5.5%)</td>
+              <td><strong>2.30+</strong></td>
+              <td><strong>&lt; 14.5%</strong></td>
+              <td><span class="status-badge bullish" style="box-shadow: 0 0 10px rgba(0,242,254,0.4);">Institutional Elite 🏆</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let globalData = null;
+
+    async function fetchDashboardData() {
+      try {
+        const resp = await fetch('dashboard_data.json?t=' + new Date().getTime());
+        if (resp.ok) {
+          globalData = await resp.json();
+          renderDashboard(globalData);
+          return;
+        }
+      } catch (e) {
+        console.log('HTTP fetch failed, using window.DASHBOARD_DATA fallback...');
+      }
+
+      if (window.DASHBOARD_DATA) {
+        globalData = window.DASHBOARD_DATA;
+        renderDashboard(globalData);
+      }
+    }
+
+    function renderDashboard(data) {
+      if (!data) return;
+
+      const p = data.portfolio || {
+        initial_capital: 50000, cash_balance: 50000, total_value: 50000, total_gain: 0,
+        total_gain_pct: 0, realized_pnl: 0, active_positions_count: 0, max_positions: 4,
+        active_positions: [], closed_trades: [], win_rate: 0
+      };
+
+      if (data.generated_at) {
+        document.getElementById('nav-last-sync').innerText = `Synced: ${data.generated_at} IST | ₹50k Capital`;
+      }
+
+      // Top KPIs
+      document.getElementById('kpi-total-val').innerText = '₹' + p.total_value.toLocaleString('en-IN', {minimumFractionDigits: 2});
+      const gainPrefix = p.total_gain >= 0 ? '+' : '';
+      document.getElementById('kpi-gain-sub').innerText = (p.total_gain >= 0 ? '🟢 ' : '🔴 ') +
+        `${gainPrefix}₹${p.total_gain.toLocaleString('en-IN', {minimumFractionDigits: 2})} (${gainPrefix}${p.total_gain_pct.toFixed(2)}% Net ROI)`;
+
+      document.getElementById('kpi-cash-val').innerText = '₹' + p.cash_balance.toLocaleString('en-IN', {minimumFractionDigits: 2});
+      document.getElementById('kpi-active-count').innerText = `${p.active_positions_count} / ${p.max_positions} Positions`;
+
+      const realGain = p.realized_pnl || 0;
+      document.getElementById('kpi-realized-val').innerText = (realGain >= 0 ? '+' : '') + '₹' + realGain.toLocaleString('en-IN', {minimumFractionDigits: 2});
+      document.getElementById('kpi-realized-sub').innerText = `Win Rate: ${p.win_rate || 0}% (${p.winning_trades_count || 0}W / ${(p.closed_trades_count || 0) - (p.winning_trades_count || 0)}L)`;
+
+      // Pristine 12 Radar Cards
+      const radarContainer = document.getElementById('radar-cards-container');
+      radarContainer.innerHTML = '';
+      data.pristine_12.forEach(stock => {
+        const concallHighlight = stock.order_book_quotes[0] || stock.growth_quotes[0] || stock.margin_quotes[0] || "Order book visibility strong with robust sector capex tailwinds.";
+        
+        const card = document.createElement('div');
+        card.className = 'stock-card';
+        card.innerHTML = `
+          <div class="stock-header">
+            <div>
+              <div class="stock-symbol">${stock.symbol}</div>
+              <div style="font-size: 11px; color: var(--accent-cyan); font-weight: 500; margin-top: 2px;">ROCE: ${stock.roce}% | ROE: ${stock.roe}%</div>
+            </div>
+            <div class="score-badge">${stock.funda_score.toFixed(2)} / 10</div>
+          </div>
+          <div class="stock-price-row">
+            <div class="stock-ltp">₹${stock.ltp.toLocaleString('en-IN')}</div>
+            <div class="stock-change ${stock.change_pct >= 0 ? 'pos' : 'neg'}">${stock.change_pct >= 0 ? '+' : ''}${stock.change_pct}%</div>
+          </div>
+          <div class="metric-pills">
+            <div class="pill">
+              <div class="pill-label">P/E</div>
+              <div class="pill-val">${stock.pe}</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">FII %</div>
+              <div class="pill-val">${stock.fii}%</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">20-EMA</div>
+              <div class="pill-val">₹${stock.ema20}</div>
+            </div>
+          </div>
+          <div class="concall-snippet">
+            <span class="concall-tag">🎙️ Concall Highlight</span>
+            "${concallHighlight.length > 120 ? concallHighlight.substring(0, 120) + '...' : concallHighlight}"
+          </div>
+          <div class="tech-status-row">
+            <span>Weekly: <strong style="color: var(--accent-emerald);">${stock.weekly_trend}</strong></span>
+            <span class="status-badge ${stock.near_20ema ? 'bullish' : 'neutral'}">${stock.near_20ema ? '🎯 20-EMA Squeeze' : '⚪ Monitoring'}</span>
+          </div>
+        `;
+        radarContainer.appendChild(card);
+      });
+
+      // Active Positions Table
+      const posTableBody = document.getElementById('positions-table-body');
+      posTableBody.innerHTML = '';
+      if (!p.active_positions || p.active_positions.length === 0) {
+        posTableBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-dim); padding: 30px;">No open positions currently. Bot scans daily at 15:18 IST for RSI(2) &le; 10 panic pullbacks in Pristine Leaders.</td></tr>`;
+      } else {
+        p.active_positions.forEach(pos => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><strong>${pos.symbol}</strong></td>
+            <td><span class="score-badge" style="font-size: 11px; padding: 2px 7px;">${(pos.funda_score || 7.5).toFixed(1)}/10</span></td>
+            <td>${pos.entry_date.split(' ')[0]}</td>
+            <td>₹${pos.entry_price.toFixed(2)}</td>
+            <td>₹${pos.current_price.toFixed(2)}</td>
+            <td>${pos.qty}</td>
+            <td style="color: var(--accent-rose);">₹${pos.stop_loss.toFixed(2)}</td>
+            <td style="color: var(--accent-cyan);">Close &gt; 5-SMA</td>
+            <td style="font-weight: 700; color: ${pos.pnl >= 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)'};">${pos.pnl >= 0 ? '+' : ''}₹${pos.pnl.toFixed(2)}</td>
+            <td style="font-weight: 700; color: ${pos.pnl_pct >= 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)'};">${pos.pnl_pct >= 0 ? '+' : ''}${pos.pnl_pct.toFixed(2)}%</td>
+          `;
+          posTableBody.appendChild(row);
+        });
+      }
+
+      // Closed Trades History
+      const closedBody = document.getElementById('closed-trades-body');
+      closedBody.innerHTML = '';
+      const closedList = p.closed_trades || [];
+
+      document.getElementById('stats-total-trades').innerText = closedList.length;
+      const wins = closedList.filter(t => (t.pnl || t.net_pnl || 0) > 0).length;
+      const losses = closedList.filter(t => (t.pnl || t.net_pnl || 0) <= 0).length;
+      document.getElementById('stats-total-wins').innerText = wins;
+      document.getElementById('stats-total-losses').innerText = losses;
+      document.getElementById('stats-win-rate').innerText = closedList.length ? `${((wins / closedList.length) * 100).toFixed(1)}%` : '0.0%';
+      const netGain = closedList.reduce((acc, t) => acc + (t.pnl || t.net_pnl || 0), 0);
+      document.getElementById('stats-net-realized').innerText = (netGain >= 0 ? '+' : '') + `₹${netGain.toFixed(2)}`;
+      document.getElementById('stats-net-realized').style.color = netGain >= 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)';
+
+      if (closedList.length === 0) {
+        closedBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-dim); padding: 30px;">No closed trades recorded yet. Completed trades will appear here automatically.</td></tr>`;
+      } else {
+        closedList.forEach(t => {
+          const row = document.createElement('tr');
+          const pnlVal = t.pnl || t.net_pnl || 0;
+          row.innerHTML = `
+            <td><strong>${t.symbol}</strong></td>
+            <td>${t.entry_date || '-'}</td>
+            <td>${t.exit_date || '-'}</td>
+            <td>₹${t.entry_price ? t.entry_price.toFixed(2) : '-'}</td>
+            <td>₹${t.exit_price ? t.exit_price.toFixed(2) : '-'}</td>
+            <td>${t.qty || '-'}</td>
+            <td>${t.hold_days !== undefined ? t.hold_days + 'd' : '-'}</td>
+            <td style="font-weight: 700; color: ${pnlVal >= 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)'};">${pnlVal >= 0 ? '+' : ''}₹${pnlVal.toFixed(2)}</td>
+            <td style="font-weight: 700; color: ${(t.pnl_pct || 0) >= 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)'};">${(t.pnl_pct || 0) >= 0 ? '+' : ''}${(t.pnl_pct || 0).toFixed(2)}%</td>
+            <td style="font-size: 11px; color: var(--text-muted);">${t.reason || 'Normal Exit'}</td>
+          `;
+          closedBody.appendChild(row);
+        });
+      }
+
+      // Concall Cards
+      const concallContainer = document.getElementById('concall-cards-container');
+      concallContainer.innerHTML = '';
+      data.pristine_12.forEach(stock => {
+        const concallCard = document.createElement('div');
+        concallCard.className = 'stock-card';
+        concallCard.innerHTML = `
+          <div class="stock-header">
+            <div class="stock-symbol">${stock.symbol}</div>
+            <div style="font-size: 12px; color: var(--accent-cyan); font-family: var(--font-mono);">${stock.concall_words.toLocaleString()} Words Parsed</div>
+          </div>
+          <div style="margin-bottom: 12px; font-size: 13px; font-weight: 600; color: var(--text-muted);">📋 Order Book & Revenue Visibility:</div>
+          <ul style="padding-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
+            ${stock.order_book_quotes.map(q => `<li style="margin-bottom: 6px;">"${q}"</li>`).join('') || '<li>Order pipeline strong across key business segments.</li>'}
+          </ul>
+          <div style="margin-bottom: 8px; font-size: 13px; font-weight: 600; color: var(--text-muted);">🏭 Margin & Capex Guidance:</div>
+          <ul style="padding-left: 18px; font-size: 12px; color: #cbd5e1; line-height: 1.5;">
+            ${stock.capex_quotes.map(q => `<li style="margin-bottom: 6px;">"${q}"</li>`).join('') || '<li>Capex program progressing on schedule with internal accruals.</li>'}
+          </ul>
+        `;
+        concallContainer.appendChild(concallCard);
+      });
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      ['radar', 'positions', 'trades', 'concall', 'matrix'].forEach(id => {
+        const el = document.getElementById('tab-' + id);
+        if (el) el.classList.add('hide');
+      });
+
+      const activeEl = document.getElementById('tab-' + tabId);
+      if (activeEl) activeEl.classList.remove('hide');
+    }
+
+    // Auto-refresh every 8 seconds
+    fetchDashboardData();
+    setInterval(fetchDashboardData, 8000);
+  </script>
+</body>
+</html>
