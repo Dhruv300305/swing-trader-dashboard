@@ -56,6 +56,43 @@
       margin-bottom: 28px;
     }
 
+    /* Strategy Switcher */
+    .strategy-switcher {
+      display: flex;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      gap: 4px;
+    }
+    .switcher-tab {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .switcher-tab:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .switcher-tab.active {
+      color: #fff;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.15));
+      border: 1px solid rgba(6, 182, 212, 0.35);
+    }
+    .switcher-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+    }
+
     .brand-group {
       display: flex;
       align-items: center;
@@ -423,6 +460,15 @@
         <h1>Confirmed Breakout Runner <span class="pill">STRATEGY #2</span></h1>
         <p>Quantitative High-Tight Flag + Wyckoff Shakeout Reclaim Engine • NSE Equities</p>
       </div>
+    </div>
+    <div class="strategy-switcher">
+      <a href="../" class="switcher-tab">
+        Strategy 1: Connors RSI
+      </a>
+      <a href="index.html" class="switcher-tab active">
+        <span class="switcher-dot"></span>
+        Strategy 2: Breakout Runner
+      </a>
     </div>
     <div class="header-actions">
       <div class="status-pill">
