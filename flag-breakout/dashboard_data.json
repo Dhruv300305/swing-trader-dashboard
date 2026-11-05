@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04 23:07:43 IST",
+  "generated_at": "2026-11-05 23:14:05 IST",
   "system": {
     "name": "Confirmed Breakout Runner",
     "version": "2.0 (136-Stock Momentum Compounder)",
@@ -62,6 +62,20 @@
       "target_measured": 2900.35,
       "added_at": "2026-10-28 21:48:40",
       "bars_in_watch": 3
+    },
+    {
+      "symbol": "ACUTAAS",
+      "shakeout_date": "2026-11-05",
+      "bars_ago": 0,
+      "flag_high": 4045.3,
+      "flag_supp": 3776.5,
+      "shakeout_low": 3742.5,
+      "sl_price": 3723.79,
+      "current_close": 3770.8,
+      "pole_gain_pct": 30.7,
+      "risk_pct": 1.25,
+      "target_measured": 4660.98,
+      "added_at": "2026-11-05 23:14:05"
     }
   ],
   "closed_trades": [],
