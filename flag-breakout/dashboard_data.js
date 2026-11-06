@@ -1,5 +1,5 @@
 window.BREAKOUT_DASHBOARD_DATA = {
-  "generated_at": "2026-11-05 23:14:05 IST",
+  "generated_at": "2026-11-06 22:27:43 IST",
   "system": {
     "name": "Confirmed Breakout Runner",
     "version": "2.0 (136-Stock Momentum Compounder)",
@@ -31,7 +31,7 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "risk_pct": 3.47,
       "target_measured": 4391.58,
       "added_at": "2026-10-28 21:48:40",
-      "bars_in_watch": 3
+      "bars_in_watch": 4
     },
     {
       "symbol": "HCLTECH",
@@ -46,7 +46,7 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "risk_pct": 3.09,
       "target_measured": 1636.22,
       "added_at": "2026-10-28 21:48:40",
-      "bars_in_watch": 3
+      "bars_in_watch": 4
     },
     {
       "symbol": "TCS",
@@ -61,21 +61,21 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "risk_pct": 2.6,
       "target_measured": 2900.35,
       "added_at": "2026-10-28 21:48:40",
-      "bars_in_watch": 3
+      "bars_in_watch": 4
     },
     {
       "symbol": "ACUTAAS",
       "shakeout_date": "2026-11-05",
-      "bars_ago": 0,
+      "bars_ago": 1,
       "flag_high": 4045.3,
       "flag_supp": 3776.5,
       "shakeout_low": 3742.5,
       "sl_price": 3723.79,
-      "current_close": 3770.8,
+      "current_close": 3786.6,
       "pole_gain_pct": 30.7,
       "risk_pct": 1.25,
       "target_measured": 4660.98,
-      "added_at": "2026-11-05 23:14:05"
+      "added_at": "2026-11-06 22:27:42"
     }
   ],
   "closed_trades": [],
