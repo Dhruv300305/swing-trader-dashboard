@@ -1,5 +1,5 @@
 window.BREAKOUT_DASHBOARD_DATA = {
-  "generated_at": "2026-11-10 01:41:56 IST",
+  "generated_at": "2026-11-10 22:50:07 IST",
   "system": {
     "name": "Confirmed Breakout Runner",
     "version": "2.0 (136-Stock Momentum Compounder)",
@@ -31,7 +31,7 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "risk_pct": 1.25,
       "target_measured": 4660.98,
       "added_at": "2026-11-06 22:27:42",
-      "bars_in_watch": 1
+      "bars_in_watch": 2
     },
     {
       "symbol": "HCLTECH",
@@ -45,7 +45,8 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "pole_gain_pct": 22.8,
       "risk_pct": 1.41,
       "target_measured": 1645.89,
-      "added_at": "2026-11-10 01:41:56"
+      "added_at": "2026-11-10 01:41:56",
+      "bars_in_watch": 1
     },
     {
       "symbol": "TCS",
@@ -59,7 +60,7 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "pole_gain_pct": 26.5,
       "risk_pct": 1.33,
       "target_measured": 2907.42,
-      "added_at": "2026-11-10 01:41:56"
+      "added_at": "2026-11-10 22:50:07"
     }
   ],
   "closed_trades": [],
