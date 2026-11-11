@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10 22:50:07 IST",
+  "generated_at": "2026-11-11 22:59:13 IST",
   "system": {
     "name": "Confirmed Breakout Runner",
     "version": "2.0 (136-Stock Momentum Compounder)",
@@ -31,7 +31,7 @@
       "risk_pct": 1.25,
       "target_measured": 4660.98,
       "added_at": "2026-11-06 22:27:42",
-      "bars_in_watch": 2
+      "bars_in_watch": 3
     },
     {
       "symbol": "HCLTECH",
@@ -46,21 +46,35 @@
       "risk_pct": 1.41,
       "target_measured": 1645.89,
       "added_at": "2026-11-10 01:41:56",
-      "bars_in_watch": 1
+      "bars_in_watch": 2
     },
     {
-      "symbol": "TCS",
-      "shakeout_date": "2026-11-05",
-      "bars_ago": 2,
-      "flag_high": 2549.9,
-      "flag_supp": 2480.0,
-      "shakeout_low": 2475.0,
-      "sl_price": 2462.62,
-      "current_close": 2475.4,
-      "pole_gain_pct": 26.5,
-      "risk_pct": 1.33,
-      "target_measured": 2907.42,
-      "added_at": "2026-11-10 22:50:07"
+      "symbol": "BHARTIHEXA",
+      "shakeout_date": "2026-11-11",
+      "bars_ago": 0,
+      "flag_high": 1759.0,
+      "flag_supp": 1621.5,
+      "shakeout_low": 1612.0,
+      "sl_price": 1603.94,
+      "current_close": 1619.5,
+      "pole_gain_pct": 23.2,
+      "risk_pct": 0.96,
+      "target_measured": 1966.35,
+      "added_at": "2026-11-11 22:59:13"
+    },
+    {
+      "symbol": "HBLENGINE",
+      "shakeout_date": "2026-11-11",
+      "bars_ago": 0,
+      "flag_high": 865.0,
+      "flag_supp": 806.5,
+      "shakeout_low": 790.35,
+      "sl_price": 786.4,
+      "current_close": 806.3,
+      "pole_gain_pct": 20.1,
+      "risk_pct": 2.47,
+      "target_measured": 956.65,
+      "added_at": "2026-11-11 22:59:13"
     }
   ],
   "closed_trades": [],
