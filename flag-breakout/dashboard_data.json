@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11 22:59:13 IST",
+  "generated_at": "2026-11-12 23:18:00 IST",
   "system": {
     "name": "Confirmed Breakout Runner",
     "version": "2.0 (136-Stock Momentum Compounder)",
@@ -31,36 +31,7 @@
       "risk_pct": 1.25,
       "target_measured": 4660.98,
       "added_at": "2026-11-06 22:27:42",
-      "bars_in_watch": 3
-    },
-    {
-      "symbol": "HCLTECH",
-      "shakeout_date": "2026-11-09",
-      "bars_ago": 0,
-      "flag_high": 1469.0,
-      "flag_supp": 1399.5,
-      "shakeout_low": 1394.1,
-      "sl_price": 1387.13,
-      "current_close": 1407.0,
-      "pole_gain_pct": 22.8,
-      "risk_pct": 1.41,
-      "target_measured": 1645.89,
-      "added_at": "2026-11-10 01:41:56",
-      "bars_in_watch": 2
-    },
-    {
-      "symbol": "BHARTIHEXA",
-      "shakeout_date": "2026-11-11",
-      "bars_ago": 0,
-      "flag_high": 1759.0,
-      "flag_supp": 1621.5,
-      "shakeout_low": 1612.0,
-      "sl_price": 1603.94,
-      "current_close": 1619.5,
-      "pole_gain_pct": 23.2,
-      "risk_pct": 0.96,
-      "target_measured": 1966.35,
-      "added_at": "2026-11-11 22:59:13"
+      "bars_in_watch": 4
     },
     {
       "symbol": "HBLENGINE",
@@ -74,7 +45,50 @@
       "pole_gain_pct": 20.1,
       "risk_pct": 2.47,
       "target_measured": 956.65,
-      "added_at": "2026-11-11 22:59:13"
+      "added_at": "2026-11-11 22:59:13",
+      "bars_in_watch": 1
+    },
+    {
+      "symbol": "BHARTIHEXA",
+      "shakeout_date": "2026-11-11",
+      "bars_ago": 1,
+      "flag_high": 1759.0,
+      "flag_supp": 1621.5,
+      "shakeout_low": 1612.0,
+      "sl_price": 1603.94,
+      "current_close": 1593.2,
+      "pole_gain_pct": 23.2,
+      "risk_pct": 0.96,
+      "target_measured": 1966.35,
+      "added_at": "2026-11-12 23:18:00"
+    },
+    {
+      "symbol": "HCLTECH",
+      "shakeout_date": "2026-11-09",
+      "bars_ago": 2,
+      "flag_high": 1469.0,
+      "flag_supp": 1399.5,
+      "shakeout_low": 1394.1,
+      "sl_price": 1387.13,
+      "current_close": 1380.8,
+      "pole_gain_pct": 22.8,
+      "risk_pct": 1.41,
+      "target_measured": 1645.89,
+      "added_at": "2026-11-12 23:18:00"
+    },
+    {
+      "symbol": "TECHM",
+      "shakeout_date": "2026-11-12",
+      "bars_ago": 0,
+      "flag_high": 1860.0,
+      "flag_supp": 1761.3,
+      "shakeout_low": 1761.0,
+      "sl_price": 1752.19,
+      "current_close": 1774.0,
+      "pole_gain_pct": 20.9,
+      "risk_pct": 1.23,
+      "target_measured": 2067.62,
+      "added_at": "2026-11-12 23:18:00"
     }
   ],
   "closed_trades": [],
