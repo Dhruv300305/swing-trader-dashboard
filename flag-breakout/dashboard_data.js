@@ -1,5 +1,5 @@
 window.BREAKOUT_DASHBOARD_DATA = {
-  "generated_at": "2026-11-13 22:54:21 IST",
+  "generated_at": "2026-11-17 01:24:19 IST",
   "system": {
     "name": "Confirmed Breakout Runner",
     "version": "2.0 (136-Stock Momentum Compounder)",
@@ -19,6 +19,21 @@ window.BREAKOUT_DASHBOARD_DATA = {
   "open_positions": {},
   "watchlist": [
     {
+      "symbol": "TCS",
+      "shakeout_date": "2026-11-13",
+      "bars_ago": 0,
+      "flag_high": 2565.0,
+      "flag_supp": 2408.2,
+      "shakeout_low": 2400.2,
+      "sl_price": 2388.2,
+      "current_close": 2407.5,
+      "pole_gain_pct": 28.1,
+      "risk_pct": 0.8,
+      "target_measured": 2939.33,
+      "added_at": "2026-11-13 22:54:21",
+      "bars_in_watch": 1
+    },
+    {
       "symbol": "TECHM",
       "shakeout_date": "2026-11-12",
       "bars_ago": 0,
@@ -31,7 +46,7 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "risk_pct": 1.23,
       "target_measured": 2067.62,
       "added_at": "2026-11-12 23:18:00",
-      "bars_in_watch": 1
+      "bars_in_watch": 2
     },
     {
       "symbol": "HBLENGINE",
@@ -46,21 +61,7 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "risk_pct": 2.47,
       "target_measured": 956.65,
       "added_at": "2026-11-11 22:59:13",
-      "bars_in_watch": 2
-    },
-    {
-      "symbol": "BHARTIHEXA",
-      "shakeout_date": "2026-11-11",
-      "bars_ago": 2,
-      "flag_high": 1759.0,
-      "flag_supp": 1621.5,
-      "shakeout_low": 1612.0,
-      "sl_price": 1603.94,
-      "current_close": 1665.5,
-      "pole_gain_pct": 23.2,
-      "risk_pct": 0.96,
-      "target_measured": 1966.35,
-      "added_at": "2026-11-13 22:54:21"
+      "bars_in_watch": 3
     },
     {
       "symbol": "HCLTECH",
@@ -74,21 +75,21 @@ window.BREAKOUT_DASHBOARD_DATA = {
       "pole_gain_pct": 22.8,
       "risk_pct": 0.91,
       "target_measured": 1645.89,
-      "added_at": "2026-11-13 22:54:21"
+      "added_at": "2026-11-17 01:24:19"
     },
     {
-      "symbol": "TCS",
-      "shakeout_date": "2026-11-13",
-      "bars_ago": 0,
-      "flag_high": 2565.0,
-      "flag_supp": 2408.2,
-      "shakeout_low": 2400.2,
-      "sl_price": 2388.2,
-      "current_close": 2407.5,
-      "pole_gain_pct": 28.1,
-      "risk_pct": 0.8,
-      "target_measured": 2939.33,
-      "added_at": "2026-11-13 22:54:21"
+      "symbol": "BHARTIHEXA",
+      "shakeout_date": "2026-11-11",
+      "bars_ago": 2,
+      "flag_high": 1759.0,
+      "flag_supp": 1621.5,
+      "shakeout_low": 1612.0,
+      "sl_price": 1603.94,
+      "current_close": 1665.5,
+      "pole_gain_pct": 23.2,
+      "risk_pct": 0.96,
+      "target_measured": 1966.35,
+      "added_at": "2026-11-17 01:24:19"
     }
   ],
   "closed_trades": [],
