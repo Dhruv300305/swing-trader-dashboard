@@ -1,5 +1,5 @@
 window.DASHBOARD_DATA = {
-  "generated_at": "2026-11-18 23:56:06",
+  "generated_at": "2026-11-20 00:13:44",
   "portfolio": {
     "initial_capital": 50000.0,
     "cash_balance": 1061.71,
